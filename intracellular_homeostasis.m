@@ -136,8 +136,8 @@ for simulation_number = 1:2
         x1(i) = max(x1(i),0);
         
         % x2 is e.g. CaMKII activation.
-        % In method-1 a linear filter of calcium
-        % In method-2 an integration of calcium (alpha2=0)
+        % In method-1 a linear filter of calcium-cubed
+        % In method-2 an integration of calcium-cubed (alpha2=0)
         x2(i) = x2(i-1) + dt/tau2*(x1bar*(x1(i-1)/x1bar)^3 - alpha2*x2(i-1) - x2_loss);
         x2(i) = max(x2(i),0);
         
