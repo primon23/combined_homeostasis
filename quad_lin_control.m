@@ -8,6 +8,14 @@
 %   primer." 
 %   by Paul Miller, Biological Cybernetics 2018.
 %
+%   It is important to note that the failure of dual homeostasis depicted
+%   in Figure 3B is the result of switching the response functions, not the
+%   goal rates between the threshold feedback and the conductance feedback 
+%   functions -- i.e. the caption is incorrect. If goal rates are switched,
+%   dual homeostasis still fails (conductance becomes zero and rate becomes
+%   constant at the threshold-goal) but that is not the plotted result in
+%   the paper.
+%
 % Tests dual homeostasis in response to changes of input current.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,8 +69,23 @@ rthresh(1) = rthresh0;
 % second with a switching of the exponents of rate in the feedback functions.
 for simulation_number = 1:2
     if ( simulation_number == 2 )
-        r_t_power = 2;
-        r_g_power = 1;
+    % Important note, the following two lines cause panel B of the figure
+    % to be the result of a switching of the exponent/power of the
+    % rate-dependence of the threshold feedback and the conductance
+    % feedback, such that threshold feedback becomes more supralinear than
+    % the conductance feedback. This causes "wind-up" and is the case
+    % plotted in Figure 3B in the paper (the caption is incorrect).
+         r_t_power = 2;
+         r_g_power = 1;
+         
+         % To switch goal rates, use the following lines instead. In this
+         % case, the conductance becomes zero and the variance of firing
+         % rate also becomes zero, with rate at a constant of r_t_goal =
+         % 15Hz. Clearly such a result is a failure of dual homeostasis, if
+         % not exactly wind-up because conductance is constrained to remain
+         % non-negative.
+        %r_t_goal = 15;
+        %r_g_goal = 10;
     end
     
     %% Simulate through all time-points
